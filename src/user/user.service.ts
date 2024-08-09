@@ -15,7 +15,9 @@ export class UserService {
          return this.userRepository.find();
     }
 
-
+    async create(data): Promise<User> {
+        return this.userRepository.save(data);
+   }   
 
 
 
