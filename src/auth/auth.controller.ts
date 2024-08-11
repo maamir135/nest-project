@@ -61,7 +61,6 @@ export class AuthController {
         const cookie = request.cookies['jwt'];
         const data = await this.jwtService.verifyAsync(cookie);
         return this.userService.findOne({id: data['id']});
-        return data;
      }
 
 }
