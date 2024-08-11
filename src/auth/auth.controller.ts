@@ -4,7 +4,7 @@ import { UserService } from 'src/user/user.service';
 import * as bcrypt from 'bcryptjs';
 import { RegisterDto } from './models/register.dto';
 import { JwtService } from '@nestjs/jwt';
-import { Response } from 'express';
+import { response, Response } from 'express';
 import { Request } from 'express';
 
 @Controller('auth')
@@ -62,6 +62,14 @@ export class AuthController {
         const cookie = request.cookies['jwt'];
         const data = await this.jwtService.verifyAsync(cookie);
         return this.userService.findOne({id: data['id']});
+     }
+
+     @Post('logout')
+     async logout(@Res({passthrough: true}) response: Response){
+        response.clearCookie('jwt');
+        return {
+            message: 'Successfully logout'
+        }
      }
 
 }
