@@ -41,7 +41,11 @@ export class UserController {
         @Param('id') id:number,
         @Body() body: UserUpdateDto
     ) {
-        await  this.userService.update(id, body);
+        const {role_id, ...data} = body;
+        await  this.userService.update(id, {
+            ...data,
+            role: {id: role_id}
+        });
         return this.userService.findOne({id});
     }
 
