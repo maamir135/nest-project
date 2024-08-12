@@ -1,4 +1,4 @@
-import { Body, ClassSerializerInterceptor, Controller, Get, Param, Post, Put, UseGuards, UseInterceptors } from '@nestjs/common';
+import { Body, ClassSerializerInterceptor, Controller, Delete, Get, Param, Post, Put, UseGuards, UseInterceptors } from '@nestjs/common';
 import { UserService } from './user.service';
 import { User } from './models/user.entity';
 import * as bcrypt from 'bcryptjs';
@@ -43,6 +43,11 @@ export class UserController {
     ) {
         await  this.userService.update(id, body);
         return this.userService.findOne({id});
+    }
+
+    @Delete(':id')
+    async delete(@Param('id') id:number) {
+        return this.userService.delete(id);
     }
 
 }
