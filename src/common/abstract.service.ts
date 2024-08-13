@@ -15,17 +15,15 @@ export abstract class AbstractService {
         return this.repository.find({relations: relations});
    }
 
-   async paginate(page: number =1 ): Promise<PaginatedResult> {
+   async paginate(page: number = 1, relations: any[] = []): Promise<PaginatedResult> {
        const take = 15;
-       const [users, total] = await this.repository.findAndCount({
+       const [data, total] = await this.repository.findAndCount({
            take,
-           skip: (page-1) * take
+           skip: (page-1) * take,
+           relations
        });
        return {
-           data: users.map(user=>{
-               const {password, ...data} = user;
-               return data;
-           }),
+           data: data,
            meta: {
                total,
                page,
