@@ -24,10 +24,10 @@ export class RoleController {
         return this.roleService.all();
     }
     @Get(':id')
-    async get(@Param('id') id:number) {
-        return this.roleService.findOne({id});
+    async get(@Param('id') id: number) {
+        return this.roleService.findOne({ id }, ['permissions']);
     }
-     
+         
     @Put(':id')
     async update(
         @Param('id') id:number,
